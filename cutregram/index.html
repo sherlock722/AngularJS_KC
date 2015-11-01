@@ -1,0 +1,45 @@
+<!DOCTYPE html >
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cutregram</title>
+
+    <!-- Bootstarp:Cargamos los estilos. Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+</head>
+<body ng-app="cutregram">
+
+<!--Contenedor general de la aplicacion-->
+    <div class="container">
+        <header>
+            <h1>Cutregram</h1>
+        </header>
+
+        <!--Creamos una tabla para recuperar la información del backend-->
+        <!--Asociamos el controlador ColeccionPostsCtrl-->
+        <div ng-controller="ColeccionPostsCtrl">
+            <table class="table">
+                <!--filas-->
+                <tr ng-repeat="post in posts">
+                    <!--Celdas-->
+                    <td>{{ post.text }}</td>
+                    <td>{{ post.author}}</td>
+                    <td>Me gusta: {{ post.likes }}</td>
+                    <td>No me gusta: {{ post.dislikes }}</td>
+                </tr>
+
+            </table>
+        </div>
+
+    </div>
+
+<!-- Cargamos la librería de AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<!-- Cargamos app.js -->
+<script src="scripts/app.js"></script>
+<!-- Cargamos los controladores -->
+<script src="scripts/controllers/ColeccionPosts.js"></script>
+
+</body>
+</html>
