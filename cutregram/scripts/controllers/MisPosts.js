@@ -1,5 +1,5 @@
 //angular.module("cutregram").controller("ColeccionPostsCtrl", function ($scope, $http)
-angular.module("cutregram").controller("ColeccionPostsCtrl", function ($scope, $http, Posts){
+angular.module("cutregram").controller("MisPostsCtrl", function ($scope, $http, Posts){
 
     $scope.posts=Posts.data;
     /*$scope.post=[{
@@ -12,8 +12,8 @@ angular.module("cutregram").controller("ColeccionPostsCtrl", function ($scope, $
 
     //API Key:91b6d0f49a864d02a169f3c4199e1c09
 
-    //Es una promesa
-    /*$http.get("http://cutregram-sp.appspot.com/api/1/posts").then(
+    //Es una promesa. Hacemos la peticion de mis post
+    /*$http.get("http://cutregram-sp.appspot.com/api/1/posts/me").then(
         //La petición al servidor fue correcta
         function (respuesta){
             //

@@ -1,0 +1,23 @@
+<div>
+    <header>
+        <h2>Mios</h2>
+    </header>
+    <!--Tabla-->
+    <table class="table">
+        <!--filas-->
+        <tr ng-repeat="post in posts">
+            <!--Celdas-->
+            <!--Con la directiva ng-if pintamos el elemento que la usa cuando su contenido
+            <!--resuelve como true-->
+            <td>
+                <img ng-src="{{post.image_url}}" ng-if="post.image_url" alt="Imagen" width="64" class="img-rounded"/>
+            </td>
+            <td>{{ post.text }}</td>
+            <td>{{ post.author}}</td>
+            <td>Me gusta: {{ post.likes }}</td>
+            <td>No me gusta: {{ post.dislikes }}</td>
+
+        </tr>
+
+    </table>
+</div>

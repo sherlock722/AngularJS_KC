@@ -12,34 +12,45 @@
 
 <!--Contenedor general de la aplicacion-->
     <div class="container">
+        <!--Cabecera-->
         <header>
             <h1>Cutregram</h1>
         </header>
 
+        <!--Barra de navegacion-->
+        <nav ng-controller="BarraNavegacionCtrl">
+            <!--Utilizamos las clases de Bootstrap-->
+            <!--Lista-->
+            <ul class="nav nav-tabs">
+                <!--Elementos de la lista-->
+                <!--La directiva ngClass espera un objeto JSON-->
+                <li role = "presentation" ng-class="{'active':rutaEsTodos()}">
+                    <a href="#/todos">Todos los posts</a>
+                </li>
+                <li role = "presentation" ng-class="{'active': rutaEsMios()}">
+                    <a href="#/mios">Mis post</a>
+                </li>
+            </ul>
+        </nav>
+
         <!--Creamos una tabla para recuperar la información del backend-->
         <!--Asociamos el controlador ColeccionPostsCtrl-->
-        <div ng-controller="ColeccionPostsCtrl">
-            <table class="table">
-                <!--filas-->
-                <tr ng-repeat="post in posts">
-                    <!--Celdas-->
-                    <td>{{ post.text }}</td>
-                    <td>{{ post.author}}</td>
-                    <td>Me gusta: {{ post.likes }}</td>
-                    <td>No me gusta: {{ post.dislikes }}</td>
-                </tr>
-
-            </table>
-        </div>
+        <!--Contenedor de las vistas-->
+        <section ng-view></section>
 
     </div>
 
 <!-- Cargamos la librería de AngularJS -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<!--Cargamos la libreria angular-route-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
 <!-- Cargamos app.js -->
 <script src="scripts/app.js"></script>
 <!-- Cargamos los controladores -->
 <script src="scripts/controllers/ColeccionPosts.js"></script>
-
+ <script src="scripts/controllers/MisPosts.js"></script>
+<script src="scripts/controllers/BarraNavegacion.js"></script>
+<!--Cargamos los constants-->
+<script src="scripts/constants/Properties.js"></script>
 </body>
 </html>

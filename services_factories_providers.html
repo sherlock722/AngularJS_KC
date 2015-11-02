@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="test">
+
+<div ng-controller="EjemploCtrl">
+    <div>Dato desde servicio: {{ datosDesdeServicio }} </div>
+    <div>Dato desde factory: {{ datosDesdeFactory }} </div>
+    <div>Dato desde provider: {{ datosDesdeProvider }} </div>
+</div>
+
+<!-- Cargamos la librería de AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script>
+    angular.module("test",[]);
+
+    //Configuramos el provider
+    angular.module("test").config (function (EjemploProviderProvider){
+        EjemploProviderProvider.establecerMensaje("Soy un mensaje desde un provider.");
+    });
+
+    //Ejemplo de servicio
+    //Retorna un objeto
+    angular.module("test").service("EjemploServicio", function (){
+
+        //Solo aquello que sea publico, es decir que cuelgue de this
+        //se puede usar desde fuera
+        this.miFuncion= function (){
+            return "Soy una funcion publica en un servicio";
+        }
+    });
+
+    //Ejemplo de Factory
+    angular.module("test").factory ("EjemploFactory", function(){
+        //Los factories pueden retornar cualquier dato
+        return 2
+    });
+
+    //Ejemplo de Provider
+    angular.module("test").provider ("EjemploProvider", function (){
+
+        //Retornamos un objeto (todas las propiedades fuera del get estan
+        //disponibles en fase de config y las del $get en el run
+
+        var mensaje="";
+        return{
+            establecerMensaje : function (valor){
+                mensaje = valor;
+            },
+                //La propiedad $get representa el factory que se inyecta
+                //en fase de run
+                $get:[function (){
+                    return {
+                        obtenerMensaje: function (){
+                            return mensaje;
+                        }
+                    }
+                }]
+        }
+    });
+
+
+    //Controlador
+    //Ejemplo de valor recogido de un servicio
+    angular.module("test").controller ("EjemploCtrl", function ($scope, EjemploServicio,EjemploFactory, EjemploProvider){
+        $scope.datosDesdeServicio=EjemploServicio.miFuncion();
+        $scope.datosDesdeFactory=EjemploFactory;
+        $scope.datosDesdeProvider=EjemploProvider.obtenerMensaje();
+    });
+
+
+
+</script>
+</body>
+</html>

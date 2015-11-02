@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promesas</title>
+</head>
+<body ng-app="test">
+
+<div ng-controller="PromesaCtrl"></div>
+
+
+<!-- Cargamos la librería de AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+
+<script>
+
+    //"use strict";
+    //Creo un módulo test
+    angular.module("test",[]);
+
+    //Servicio para trabajar con objetos diferidos
+    //Inyectamos el servicio $q para trabajar con objetos diferidos
+    angular.module("test").service("Diferido", function ($q){
+
+        //Hacemos una operacióna asincrona y resolvemos o rechazamos el diferido
+        this.dameUnaPromesa=function (){
+
+            //Creamos el objeto diferido
+            var diferido=$q.defer();
+
+            setTimeout(function (){
+
+                //Resolvemos para indicar que la operacion ha ido bien
+                //Ejecutaría el primer manejador del controlador
+                //diferido.resolve(" Ha ido bien");//Se puede pasar cualquier tipo de dato
+
+                //Rechazamos para indicar que la operacion ha ido mal
+                //Ejecutaría el segundo manejador del controlador
+                diferido.reject ("Algo ha ido mal");
+
+            },3000);
+
+            //Siempre retornamos la promesa
+            return diferido.promise;
+
+        };
+    });
+
+    //Creamos un controlador para trabajar con la promesa
+    //Inyecto el servicio Diferido
+    angular.module("test").controller ("PromesaCtrl", function ($scope, Diferido){
+
+        Diferido.dameUnaPromesa().then(
+
+                //Fué genial la operacion
+                function (datos){
+                    alert ("Success:" + datos);
+                },
+                //Algo fue mal en la operacion
+                function (datos){
+                    alert ("Error:" + datos);
+                }
+        );
+    });
+
+</script>
+
+</body>
+</html>
