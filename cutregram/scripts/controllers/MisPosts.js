@@ -1,7 +1,26 @@
 //angular.module("cutregram").controller("ColeccionPostsCtrl", function ($scope, $http)
-angular.module("cutregram").controller("MisPostsCtrl", function ($scope, $http, Posts){
+angular.module("cutregram").controller("MisPostsCtrl", function ($scope, $http, Posts,backend){
 
     $scope.posts=Posts.data;
+
+
+    //Sumar un me gusta
+    $scope.MeGusta=function (post){
+        backend.sumarMeGusta(post.id).then (
+            function (respuesta) {
+                post.likes++;
+            }
+        );
+    };
+
+    //Sumar un No me gusta
+    $scope.NoMeGusta=function (post){
+        backend.sumarMeGusta(post.id).then (
+            function (respuesta){
+                post.dislikes ++;
+            }
+        );
+    };
     /*$scope.post=[{
         "id":1,
         "text":"Pedazo de viaje que me acabo de hacer"

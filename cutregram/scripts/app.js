@@ -1,16 +1,19 @@
 //Definicion de la aplicacion
 //Inyectamos la librerúa ngRoute para configurar las rutas
-angular.module ("cutregram", ["ngRoute"]);
+angular.module ("cutregram", ["ngRoute","angular-loading-bar"]);
 
 
 //Atacamos la parte del config
 //Configuramos el servicio http para que las cabeceras
 //que tiene que mandar al servidor sea de una determinada forma
-angular.module ("cutregram").config (function ($httpProvider, Properties){
 
+//Como se lleva a un provider el codigo el config cambia
+//angular.module ("cutregram").config (function ($httpProvider, Properties){
+angular.module ("cutregram").config (function (backendProvider, Properties){
     //Configuramos el servicio http para que envie la cabecera
     //necesaria
-    $httpProvider.defaults.headers.common = {
+    //Se lleva a un provider (script/providers/backend.js)
+    /*$httpProvider.defaults.headers.common = {
         //"X-Cutregram-Api-Key": "91b6d0f49a864d02a169f3c4199e1c09"
         "X-Cutregram-Api-Key": Properties.apiKey
     };
@@ -19,13 +22,19 @@ angular.module ("cutregram").config (function ($httpProvider, Properties){
     //problema de CORS (cruce de dominios)
     $httpProvider.defaults.headers.post={};
     $httpProvider.defaults.headers.put={};
-    $httpProvider.defaults.headers.patch={};
+    $httpProvider.defaults.headers.patch={};*/
+    backendProvider.establecerApiKey(Properties.apiKey);
+    backendProvider.habilitarPeticionesCORS();
+    backendProvider.establecerUrlBackend(Properties.backendUrl);
 
 });
 
 //En fase de config inyectamos $routeProvider para configurar las rutas
 //de la aplicacion
-angular.module ("cutregram").config(function ($routeProvider, Properties) {
+
+//Como he utilizado un provider (/script/providers/backebd.js) el config se sustituye:
+//angular.module ("cutregram").config(function ($routeProvider, Properties) {
+angular.module ("cutregram").config(function ($routeProvider) {
 
 //Definir la ruta de "Todos los post"
     $routeProvider.when("/todos", {
@@ -33,14 +42,23 @@ angular.module ("cutregram").config(function ($routeProvider, Properties) {
         templateUrl: "views/ColeccionPost.html",
         resolve: { //Devuelve una promesa
             //Propiedades y dependencias (se ejecuta previa a la navegacion)
-            Posts: ["$http", function ($http){
+
+            //Cambia al usar un provider (ahora se inyecta el provider backend)
+            //Posts: ["$http", function ($http){
+            Posts: ["backend", function (backend){ //Notacion de array en linea
+
+                //Cambia al usar un provider
                 //return $http.get("http://cutregram-sp.appspot.com/api/1/posts",{
-                return $http.get(Properties.backendUrl + "posts",{
+                /*return $http.get(Properties.backendUrl + "posts",{
 
                     cache:true //Cacheamos los datos
-                });
 
-            }] //Notacion de array en linea
+
+                });*/
+
+                return backend.obtenerTodosLosPost();
+
+            }]
         }
     });
 //Definir la ruta de "Mis posts"
@@ -50,13 +68,19 @@ angular.module ("cutregram").config(function ($routeProvider, Properties) {
         //Se resuelven dependencias del controlador.
         resolve: { //Devuelve una promesa
             //Propiedades y dependencias (se ejecuta previa a la navegacion)
-            Posts: ["$http", function ($http){
-                //return $http.get("http://cutregram-sp.appspot.com/api/1/posts/me",{
-                return $http.get(Properties.backendUrl + "posts/me",{
-                cache:true
-                });
 
-            }] //Notacion de array en linea
+            //Cambia al usar un provider (ahora se inyecta el provider backend)
+            //Posts: ["$http", function ($http){
+            Posts: ["backend", function (backend){ //Notacion de array en linea
+
+                //Cambia al usar un provider
+                //return $http.get("http://cutregram-sp.appspot.com/api/1/posts/me",{
+                /*return $http.get(Properties.backendUrl + "posts/me",{
+                cache:true
+                });*/
+                return backend.obtenerMisPost();
+
+            }]
         }
     });
 

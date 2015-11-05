@@ -6,6 +6,8 @@
 
     <!-- Bootstarp:Cargamos los estilos. Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <!--Cargamos los estilos de angular-Loading-Bar-->
+    <link rel="stylesheet" href="styles/loading-bar.min.css"/>
 
 </head>
 <body ng-app="cutregram">
@@ -44,6 +46,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 <!--Cargamos la libreria angular-route-->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+
+<!--Cargamos dependencias de terceros-->
+<script src="vendor/loading-bar.min.js"></script>
+
 <!-- Cargamos app.js -->
 <script src="scripts/app.js"></script>
 <!-- Cargamos los controladores -->
@@ -52,5 +58,7 @@
 <script src="scripts/controllers/BarraNavegacion.js"></script>
 <!--Cargamos los constants-->
 <script src="scripts/constants/Properties.js"></script>
+<!--Cargamos los Providers-->
+<script src="scripts/providers/backend.js"></script>
 </body>
 </html>

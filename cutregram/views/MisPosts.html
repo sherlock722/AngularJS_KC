@@ -14,8 +14,21 @@
             </td>
             <td>{{ post.text }}</td>
             <td>{{ post.author}}</td>
-            <td>Me gusta: {{ post.likes }}</td>
-            <td>No me gusta: {{ post.dislikes }}</td>
+            <td>
+
+                <button class="btn btn-primary" type="button" ng-click="MeGusta(post)">
+                    Me gusta <span class="badge">{{ post.likes }}</span>
+                </button>
+                <!--Me gusta: {{ post.likes }}</td>-->
+            </td>
+            <td>
+
+                <button class="btn btn-danger" type="button" ng-click="NoMeGusta(post)">
+                    No me gusta <span class="badge">{{ post.dislikes }}</span>
+                </button>
+
+                <!--No me gusta: {{ post.dislikes }}</td> -->
+            </td>
 
         </tr>
 
