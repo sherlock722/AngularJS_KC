@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body ng-app="test">
+
+    <div ng-controller="EjemploFiltrosCtrl">
+
+        <div>
+            <strong>Filtro Currency:</strong>{{ 12.2324444 | currency}}
+        </div>
+        <div>
+            <strong>Filtro Date:</strong>{{ ahora | date:'medium'}}
+        </div>
+
+        <div>
+            <strong>Filtros orderBy y filter: </strong>
+            <ul>
+                <!-- Usamos los filtros orderBy y filter de AngularJS -->
+                <li ng-repeat="usuario in usuarios | orderBy:'nombre' | filter:{ nombre: 'Ro' }">
+                    <!--
+                    <li ng-repeat="usuario in usuarios | orderBy:'nombre'">
+                     -->
+                    {{ usuario.nombre }}
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+
+        <!-- Cargamos la librería de AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <!--Cargamos la libreria de locale-->
+    <script src="angular-locale_es-es.js"></script>
+
+    <script>
+        angular.module ("test",[]);
+
+        angular.module("test").controller("EjemploFiltrosCtrl", function ($scope){
+            $scope.ahora=new Date().getTime();//Devuelve el timestamp del momento
+
+            /*$scope.usuarios = [{
+                nombre: "Javier"
+            },{
+                nombre:"Susana"
+            },{
+                nombre:"Alvaro"
+            }];*/
+            
+            //Coleccion de usuarios a ordenar
+            $scope.usuarios = [{
+                nombre: "José"
+            },{
+                nombre: "Alvaro"
+            },{
+                nombre: "Rodrigo"
+            },{
+                nombre: "Dario"
+            },{
+                nombre: "Rodolfo"
+            },{
+                nombre: "Manuel"
+            }];
+        });
+
+    </script>
+
+</body>
+</html>
