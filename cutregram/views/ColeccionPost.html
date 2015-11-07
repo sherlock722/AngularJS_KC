@@ -3,17 +3,36 @@
     <header>
         <h2>Todos</h2>
     </header>
+
+    <!-- Pintamos una caja de texto para filtrar por autor. -->
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="filtroAutor">Autor del post</label>
+            <input type="text" id="filtroAutor" ng-model="filtroPorAutor" />
+        </div>
+    </form>
+
+    <!--Creamos una caja de texto para filtrar por autor-->
+    <!--
+    <input type="text" ng-model="filtroPorAutor"/>
+    -->
+
     <table class="table">
         <!--filas-->
-        <tr ng-repeat="post in posts">
+        <tr ng-repeat="post in posts | filter:{ author: filtroPorAutor }">
             <!--Celdas-->
             <!--Con la directiva ng-if pintamos el elemento que la usa cuando su contenido
             <!--resuelve como true-->
             <td>
                 <img ng-src="{{post.image_url}}" ng-if="post.image_url" alt="Imagen" width="64" class="img-rounded"/>
             </td>
-            <td>{{ post.text }}</td>
-            <td>{{ post.author}}</td>
+            <td>
+                <div>{{ post.text }}</div>
+
+                <div>
+                    <small>{{ post.author | firma:post.created}}</small>
+                </div>
+            </td>
             <td>
                 <button class="btn btn-primary" type="button" ng-click="MeGusta(post)">
                     Me gusta <span class="badge">{{ post.likes }}</span>
