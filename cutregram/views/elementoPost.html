@@ -1,0 +1,33 @@
+<tr>
+
+    <td>
+        <img ng-src="{{post.image_url}}" ng-if="post.image_url" alt="Imagen" width="64" class="img-rounded"/>
+    </td>
+    <td>
+        <div>
+            <button class="btn btn-link" ng-click="notificarClick()">
+                {{ post.text }}
+            </button>
+
+        </div>
+
+        <div>
+            <small>{{ post.author | firma:post.created}}</small>
+        </div>
+    </td>
+    <td>
+        <button class="btn btn-primary" type="button" ng-click="MeGusta()">
+            Me gusta <span class="badge">{{ post.likes }}</span>
+        </button>
+
+        <!--Me gusta: {{ post.likes }}</td>-->
+    </td>
+    <td>
+        <button class="btn btn-danger" type="button" ng-click="NoMeGusta()">
+            No me gusta <span class="badge">{{ post.dislikes }}</span>
+        </button>
+
+        <!--No me gusta: {{ post.dislikes }}</td> -->
+    </td>
+
+</tr>

@@ -19,10 +19,21 @@
 
     <table class="table">
         <!--filas-->
-        <tr ng-repeat="post in posts | filter:{ author: filtroPorAutor }">
+
+        <!--Usamos la directiva en el elemento <tr>. Utilizamos la directiva elemento-post-->
+        <tr ng-repeat="post in posts | filter:{ author: filtroPorAutor }"
+                elemento-post
+                on-post-click="navegar(idPost)"
+                post="post"> <!--Estoy pasando el element post a la directiva-->
+
             <!--Celdas-->
             <!--Con la directiva ng-if pintamos el elemento que la usa cuando su contenido
             <!--resuelve como true-->
+
+
+            <!--Me he llevado el contenido del TR a la vista elementoPost.html para usarla en
+             la directiva elementoPost.js (1)
+
             <td>
                 <img ng-src="{{post.image_url}}" ng-if="post.image_url" alt="Imagen" width="64" class="img-rounded"/>
             </td>
@@ -38,15 +49,17 @@
                     Me gusta <span class="badge">{{ post.likes }}</span>
                 </button>
 
-                <!--Me gusta: {{ post.likes }}</td>-->
+                ESTO ES UN COMENTARIO QUE FALTA CERRAR: <!--Me gusta: {{ post.likes }}</td>
             </td>
             <td>
                 <button class="btn btn-danger" type="button" ng-click="NoMeGusta(post)">
                     No me gusta <span class="badge">{{ post.dislikes }}</span>
                 </button>
 
-                <!--No me gusta: {{ post.dislikes }}</td> -->
+               ESTO ES UN COMENTARIO QUE FALTA CERRAR: <!--No me gusta: {{ post.dislikes }}</td>
             </td>
+
+            Comentario de la directiva (1)-->
 
         </tr>
 

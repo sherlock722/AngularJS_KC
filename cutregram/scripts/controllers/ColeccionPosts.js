@@ -4,8 +4,18 @@ angular.module("cutregram").controller("ColeccionPostsCtrl", function ($scope, $
 
     $scope.posts=Posts.data;
 
+
+    //Quiero recibir la notificacion de para navegar
+    //Redirigir el navegador al detalle del post indicado
+    $scope.navegar = function(idPost){
+
+        alert ("Navegar al post " + idPost);
+    }
+
+
     //Usamos la funcionalidad de los botones (inyectamos el provider backend)
 
+    /* Se ha llevado el código a la propiedad link de la directiva elementoPost.js
     //Sumar un me gusta
     $scope.MeGusta=function (post){
         backend.sumarMeGusta(post.id).then (
@@ -17,12 +27,13 @@ angular.module("cutregram").controller("ColeccionPostsCtrl", function ($scope, $
 
     //Sumar un No me gusta
     $scope.NoMeGusta=function (post){
-        backend.sumarMeGusta(post.id).then (
+        backend.sumarNoMeGusta(post.id).then (
             function (respuesta){
                 post.dislikes ++;
             }
         );
     };
+    */
 
 
     /*$scope.post=[{

@@ -4,6 +4,7 @@ angular.module("cutregram").controller("MisPostsCtrl", function ($scope, $http, 
     $scope.posts=Posts.data;
 
 
+    /* Se ha llevado el código a la propiedad link de la directiva elementoPost.js
     //Sumar un me gusta
     $scope.MeGusta=function (post){
         backend.sumarMeGusta(post.id).then (
@@ -15,12 +16,14 @@ angular.module("cutregram").controller("MisPostsCtrl", function ($scope, $http, 
 
     //Sumar un No me gusta
     $scope.NoMeGusta=function (post){
-        backend.sumarMeGusta(post.id).then (
+        backend.sumarNoMeGusta(post.id).then (
             function (respuesta){
                 post.dislikes ++;
             }
         );
-    };
+    };*/
+
+
     /*$scope.post=[{
         "id":1,
         "text":"Pedazo de viaje que me acabo de hacer"
