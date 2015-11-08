@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internacionalización de aplicaciones en AngularJS</title>
+</head>
+<body ng-app="test">
+
+<div ng-controller="RegionCtrl">
+    <!-- Usamos angular-translate como un filtro -->
+    <div>
+        <strong>Traducción con filtro:</strong> {{ "texto1" | translate }}
+    </div>
+    <!-- Usamos angular-translate como directiva -->
+    <div>
+        <strong>Traducción con directiva:</strong>
+        <span translate="texto2"></span>
+    </div>
+    <!-- Usamos angular-translate como servicio -->
+    <div>
+        <strong>Traducción con servicio:</strong> {{ texto3 }}
+    </div>
+    <!-- Pintamos algunos datos regionales -->
+    <div>
+        <strong>Divisa:</strong> {{ 12.456 | currency }}
+    </div>
+    <div>
+        <strong>Fecha:</strong> {{ fecha | date:"medium" }}
+    </div>
+    <!-- Con este botón intercambiamos las regiones -->
+    <button ng-click="cambiarRegion()">Cambiar región</button>
+</div>
+
+<!-- Cargamos la librería de AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<!-- Cargamos la librería angular-translate -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.8.1/angular-translate.min.js"></script>
+<!-- Cargamos la librería Angular Dynamic Locale -->
+<script src="tmhDynamicLocale.js"></script>
+<script>
+    // Creamos un módulo test.
+    angular.module("test", ["pascalprecht.translate", "tmh.dynamicLocale"]);
+    // Establecemos una constante con la información de región.
+    angular.module("test").constant("Region", "es-es");
+    // Configuramos los diccionarios de idioma para angular-translate.
+    angular.module("test").config(function($translateProvider, Region) {
+        $translateProvider.translations("es-es", {
+            "texto1": "Texto obtenido con el filtro 'translate'.",
+            "texto2": "Texto obtenido con la directiva 'translate'.",
+            "texto3": "Texto obtenido con el servicio '$translate'."
+        });
+        $translateProvider.translations("en-us", {
+            "texto1": "Text retrieved with the filter 'translate'.",
+            "texto2": "Text retrieved with the directive 'translate'.",
+            "texto3": "Text retrieved with the service '$translate'."
+        });
+        $translateProvider.preferredLanguage(Region);
+    });
+    // Configuramos Angular Dynamic Locale para que cargue los documentos de locale.
+    angular.module("test").config(function(tmhDynamicLocaleProvider) {
+        tmhDynamicLocaleProvider.localeLocationPattern("angular-locale_{{ locale }}.js");
+    });
+    // En fase de run establecemos los idiomas por defecto.
+    angular.module("test").run(function($translate, tmhDynamicLocale, Region) {
+        $translate.use(Region);
+        tmhDynamicLocale.set(Region);
+    });
+    // Controlador para usar el servicio $translate.
+    angular.module("test").controller("RegionCtrl", function($scope, $translate, tmhDynamicLocale, Region) {
+        $scope.fecha = Date.now();
+        // Cambia la región.
+        $scope.cambiarRegion = function() {
+            // Intercambiamos la región.
+            Region = Region === "es-es" ? "en-us" : "es-es";
+            // La establecemos en las librerías.
+            tmhDynamicLocale.set(Region);
+            $translate.use(Region);
+            // Buscamos la traducción del 'texto3'.
+            obtenerTraduccionConServicio();
+        };
+        // Obtiene la traducción del 'texto3' a través de un servicio.
+        function obtenerTraduccionConServicio() {
+            $translate(["texto3"]).then(
+                    function(traducciones) {
+                        $scope.texto3 = traducciones.texto3;
+                    }
+            );
+        }
+        // Buscamos la traducción del 'texto3'.
+        obtenerTraduccionConServicio();
+    });
+</script>
+</body>
+</html>
