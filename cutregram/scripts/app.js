@@ -83,6 +83,21 @@ angular.module ("cutregram").config(function ($routeProvider) {
             }]
         }
     });
+    //Definir la ruta de detalle de post
+    //Se pasa el parametro idPost (se hace con :)
+    $routeProvider.when ("/detalle/:idPost",{
+
+        controller:"detallePostCtrl",
+        templateUrl: "views/detallePost.html",
+        resolve: {
+            //Propiedades y dependencias (se ejecuta previa a la navegacion)
+            Post: ["backend","$route", function (backend,$route){ //Notacion de array en linea
+                return backend.obtenerPost($route.current.params.idPost);
+            }]
+        }
+
+    });
+
 
 //Configuramos una ruta por defecto
     $routeProvider.otherwise({

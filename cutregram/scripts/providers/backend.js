@@ -41,6 +41,12 @@ angular.module("cutregram").provider ("backend", function ($httpProvider){
                         cache:true
                     });
                 },
+
+                //Obtener el post indicado (detalle Post)
+                obtenerPost: function(idPost){
+                    return $http.get (urlBackend + "posts/" + idPost);
+                },
+
                 //Sumamos un me gusta al post indicado
                 sumarMeGusta: function (idPost){
                     return $http.post(urlBackend + "posts/" +idPost + "/like");

@@ -1,0 +1,24 @@
+<!-- Este artículo hace referencia a los detalles del post -->
+<article>
+
+    <header>
+
+        <button class="btn btn-link" ng-click="volver()">
+            Volver
+        </button>
+
+    </header>
+
+    <img ng-src="{{ ::post.image_url }}" alt="Imagen" class="img-circle" width="250" />
+    <h4>{{ ::post.text }}</h4>
+    Me gusta <spam class="badge">{{::post.likes}}</spam>
+    No Me gusta <spam class="badge">{{::post.dislikes}}</spam>
+
+    <footer>
+        <small>{{ ::post.author | firma:post.created }}</small>
+    </footer>
+
+
+</article>
+
+

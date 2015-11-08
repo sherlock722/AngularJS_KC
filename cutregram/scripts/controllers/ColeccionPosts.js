@@ -1,6 +1,6 @@
 //angular.module("cutregram").controller("ColeccionPostsCtrl", function ($scope, $http)
 //Inyectamos el provider para usar la funcionalidad de los botones
-angular.module("cutregram").controller("ColeccionPostsCtrl", function ($scope, $http, Posts, backend){
+angular.module("cutregram").controller("ColeccionPostsCtrl", function ($scope, $http, Posts, backend,$location){
 
     $scope.posts=Posts.data;
 
@@ -9,7 +9,11 @@ angular.module("cutregram").controller("ColeccionPostsCtrl", function ($scope, $
     //Redirigir el navegador al detalle del post indicado
     $scope.navegar = function(idPost){
 
-        alert ("Navegar al post " + idPost);
+        //alert ("Navegar al post " + idPost);
+        //Cuando desde un controlador quiero navegar a otra ruta
+        //necesito usar el servicio $location
+        $location.path("/detalle/" + idPost);
+
     }
 
 
