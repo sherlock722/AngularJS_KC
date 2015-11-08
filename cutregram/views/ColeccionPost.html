@@ -64,4 +64,19 @@
         </tr>
 
     </table>
+
+    <!--Pintamos un control de paginacion. Esto es una directiva de ui-bootstrap-->
+    <uib-pagination
+            ng-change="paginador.cambioDePagina()"
+            ng-model="paginador.paginaActual"
+            total-items="paginador.totalElementos"
+            items-per-page="paginador.elementosPorPagina"
+            boundary-links="true"
+            first-text="&lt;&lt;"
+            last-text="&gt;&gt;"
+            previous-text="&lt;"
+            next-text="&gt;">
+    </uib-pagination>
+
+
 </div>

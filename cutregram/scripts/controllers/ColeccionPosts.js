@@ -1,8 +1,39 @@
 //angular.module("cutregram").controller("ColeccionPostsCtrl", function ($scope, $http)
 //Inyectamos el provider para usar la funcionalidad de los botones
-angular.module("cutregram").controller("ColeccionPostsCtrl", function ($scope, $http, Posts, backend,$location){
+angular.module("cutregram").controller("ColeccionPostsCtrl", function ($scope, $http, Posts, backend, $location){
 
-    $scope.posts=Posts.data;
+    //Almacenamos en local la coleccion de post para que no se muestren todos
+    //directamente en la vista
+
+    var posts=Posts.data;
+    //$scope.posts=Posts.data;
+
+    //Establecemos las propiedades del paginador
+    $scope.paginador={
+
+      //ng-change: Evento para cambiar de página
+      cambioDePagina: function(){
+
+          //slice: Obtener un subconjuto del array de posts
+          //Obtenemos el primer y último elemento a mostrar
+          var primero = ($scope.paginador.paginaActual-1) * $scope.paginador.elementosPorPagina;
+          var ultimo = primero + $scope.paginador.elementosPorPagina;
+          //Establecemos en la vista la página solicitada
+          $scope.posts = posts.slice (primero,ultimo);
+      },
+      //ng_model:Página actual
+        paginaActual:1,
+
+      //total-items
+        totalElementos: posts.length,
+
+      //items-per-page:Elementos por página
+        elementosPorPagina:20
+
+    };
+
+    // Forzamos el cambio de página para que traiga la primera al entrar a la vista.
+    $scope.paginador.cambioDePagina();
 
 
     //Quiero recibir la notificacion de para navegar

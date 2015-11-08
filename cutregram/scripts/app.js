@@ -1,6 +1,6 @@
 //Definicion de la aplicacion
 //Inyectamos la librerúa ngRoute para configurar las rutas
-angular.module ("cutregram", ["ngRoute","angular-loading-bar"]);
+angular.module ("cutregram", ["ngRoute","angular-loading-bar","ui.bootstrap"]);
 
 
 //Atacamos la parte del config
@@ -105,3 +105,4 @@ angular.module ("cutregram").config(function ($routeProvider) {
     });
 
 });
+
